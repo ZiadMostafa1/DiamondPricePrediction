@@ -7,18 +7,15 @@ model = pickle.load(open('final_xg', 'rb'))
 
 # Streamlit app
 def predict_diamond_price(input_data):
-    # Preprocess input data
-    # Predict
     prediction = model.predict(input_data)
     return prediction
 
 def main():
-
-    # set page defult mode to light mode
-
-
     st.set_page_config(page_title='Diamond Price Prediction App', page_icon='💎')
     st.title('Diamond Price Prediction App 💎')
+
+    # make the page light mode
+    st.markdown('<style>body{color: black; background-color: white}</style>', unsafe_allow_html=True)
     
     # Collecting user input for each feature with descriptions
     carat = st.number_input('Carat (Weight of the diamond)', value=1.00, format="%.2f")
@@ -32,7 +29,6 @@ def main():
     z = st.number_input('Z (Depth in mm)', value=7.00, format="%.2f")
     
     if st.button('Predict Price'):
-        # Prepare the input data in the format expected by column_trans
         input_data = pd.DataFrame([[
             carat, cut, color, clarity, depth, table, x, y, z
         ]], columns=['carat', 'cut', 'color', 'clarity', 'depth', 'table', 'x', 'y', 'z'])
